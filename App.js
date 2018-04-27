@@ -4,7 +4,9 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Button,
+  ToastAndroid
 } from 'react-native';
 
 
@@ -22,6 +24,17 @@ export default class App extends Component {
     firebase.initializeApp(config);
   }
 
+  salvarDados(){
+    //ToastAndroid.show("fdsfdf",ToastAndroid.SHORT);
+    var funcionarios = firebase.database().ref("funcionarios");
+    //database.ref("pontuacao").remove();
+    funcionarios.push().set({
+      nome: "maria",
+      altura: "1,55",
+      peso: '50'
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -31,6 +44,7 @@ export default class App extends Component {
         <Text style={styles.instructions}>
           To get started, edit App.js
         </Text>
+        <Button onPress={ () => this.salvarDados() } title="Salvar dados" color="#841584" accessibilityLabel="Salvar dados"/>
       </View>
     );
   }
