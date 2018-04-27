@@ -89,21 +89,41 @@ export default class App extends Component {
     */
   }
 
+  logout(){
+    const usuario = firebase.auth();
+    usuario.signOut();
+  }
+
+  login(){
+    var dados = {
+      email: "jean@jean.com",
+      senha: "123456"
+    }
+
+    const usuario = firebase.auth();
+
+    usuario.signInWithEmailAndPassword(dados.email, dados.senha).catch( (error) => {
+      alert(error.message);
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Pontos: {this.state.pontuacao}
+          Bem vindo ao React-Native
         </Text>
-        <Text style={styles.instructions}>
-          Salvar
-        </Text>
+        <Text style={styles.instructions}/>
         <Button onPress={() => this.cadastrarUsuario()} title="Cadastrar Usuário" color="#841584"/>
 
-        <Text style={styles.instructions}>
-          Listar
-        </Text>
+        <Text style={styles.instructions}/>
         <Button onPress={() => this.verificarUsuarioLogado()} title="Verificar usuário logado" color="#841584"/>
+
+        <Text style={styles.instructions}/>
+        <Button onPress={() => this.logout()} title="Sair" color="#841584"/>
+
+        <Text style={styles.instructions}/>
+        <Button onPress={() => this.login()} title="Entrar" color="#841584"/>
       </View>
     );
   }
