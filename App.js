@@ -9,8 +9,16 @@ import {
   ToastAndroid
 } from 'react-native';
 
+console.disableYellowBox = true;
 
 export default class App extends Component {
+  constructor(){
+    super()
+
+    this.state = {
+      pontuacao: 0
+    }
+  }
 
   componentWillMount() {
     var config = {
@@ -22,9 +30,11 @@ export default class App extends Component {
       messagingSenderId: "189195563783"
     };
     firebase.initializeApp(config);
+
+    this.listarDados();
   }
 
-  salvarDados(){
+  salvarDados() {
     //ToastAndroid.show("fdsfdf",ToastAndroid.SHORT);
     var funcionarios = firebase.database().ref("funcionarios");
     //database.ref("pontuacao").remove();
@@ -35,16 +45,28 @@ export default class App extends Component {
     });
   }
 
+  listarDados() {
+    var pontuacao = firebase.database().ref("pontuacao");
+    pontuacao.on('value', (snapshot) => {
+      this.setState({pontuacao: snapshot.val()});
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Pontos: {this.state.pontuacao}
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit App.js
+          Salvar
         </Text>
-        <Button onPress={ () => this.salvarDados() } title="Salvar dados" color="#841584" accessibilityLabel="Salvar dados"/>
+        <Button onPress={() => this.salvarDados()} title="Salvar dados" color="#841584" accessibilityLabel="Salvar dados" />
+
+        <Text style={styles.instructions}>
+          Listar
+        </Text>
+        <Button onPress={() => this.listarDados()} title="Listar dados" color="#841584" accessibilityLabel="Listar dados" />
       </View>
     );
   }
