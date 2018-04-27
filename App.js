@@ -1,9 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   Platform,
@@ -12,15 +7,21 @@ import {
   View
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
+
+  componentWillMount() {
+    var config = {
+      apiKey: "AIzaSyCraTAEqfd3zwy9NqLddsRzHErVMuCTY9s",
+      authDomain: "react-native-firebase-te-565b5.firebaseapp.com",
+      databaseURL: "https://react-native-firebase-te-565b5.firebaseio.com",
+      projectId: "react-native-firebase-te-565b5",
+      storageBucket: "react-native-firebase-te-565b5.appspot.com",
+      messagingSenderId: "189195563783"
+    };
+    firebase.initializeApp(config);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -29,9 +30,6 @@ export default class App extends Component<Props> {
         </Text>
         <Text style={styles.instructions}>
           To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
         </Text>
       </View>
     );
