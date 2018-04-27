@@ -65,6 +65,30 @@ export default class App extends Component {
     });
   }
 
+  verificarUsuarioLogado(){
+    const usuario = firebase.auth();
+
+    usuario.onAuthStateChanged( (usuarioAtual) => {
+      if(usuarioAtual){
+        alert("Está logado");
+      }
+      else{
+        alert("Não está logado");
+      }
+    });
+
+    /*
+    const usuarioAtual = usuario.currentUser();
+
+    if(usuarioAtual){
+      alert("Está logado");
+    }
+    else{
+      alert("Não está logado");
+    }
+    */
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -79,7 +103,7 @@ export default class App extends Component {
         <Text style={styles.instructions}>
           Listar
         </Text>
-        <Button onPress={() => this.listarDados()} title="Listar dados" color="#841584"/>
+        <Button onPress={() => this.verificarUsuarioLogado()} title="Verificar usuário logado" color="#841584"/>
       </View>
     );
   }
