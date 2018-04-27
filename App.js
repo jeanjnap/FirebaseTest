@@ -31,7 +31,7 @@ export default class App extends Component {
     };
     firebase.initializeApp(config);
 
-    this.listarDados();
+    //this.listarDados();
   }
 
   salvarDados() {
@@ -52,6 +52,19 @@ export default class App extends Component {
     });
   }
 
+  cadastrarUsuario(){
+    var dados = {
+      email: "jean@jean.com",
+      senha: "123456"
+    }
+
+    const usuario = firebase.auth();
+
+    usuario.createUserWithEmailAndPassword(dados.email, dados.senha).catch( (error) => {
+      alert(error.message);
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -61,12 +74,12 @@ export default class App extends Component {
         <Text style={styles.instructions}>
           Salvar
         </Text>
-        <Button onPress={() => this.salvarDados()} title="Salvar dados" color="#841584" accessibilityLabel="Salvar dados" />
+        <Button onPress={() => this.cadastrarUsuario()} title="Cadastrar Usuário" color="#841584"/>
 
         <Text style={styles.instructions}>
           Listar
         </Text>
-        <Button onPress={() => this.listarDados()} title="Listar dados" color="#841584" accessibilityLabel="Listar dados" />
+        <Button onPress={() => this.listarDados()} title="Listar dados" color="#841584"/>
       </View>
     );
   }
